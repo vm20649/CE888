@@ -36,38 +36,67 @@ Then we load the ResNet50 model and use transfer learning to use the prebuilt tr
 
 
 base_model=ResNet50(include_top=False, weights='imagenet',input_shape=(150,150,3), pooling='max')
+
 base_model.summary()
+
 model=Sequential()
+
 model.add(base_model)
+
 model.add(Dropout(0.20))
+
 model.add(Dense(2048,activation='relu'))
+
 model.add(Dense(1024,activation='relu'))
+
 model.add(Dense(512,activation='relu'))
+
 model.add(Dense(2,activation='softmax'))
+
 epochs=100
+
 batch_size=128
+
 red_lr=ReduceLROnPlateau(monitor='val_acc', factor=0.1, min_delta=0.0001, patience=2, verbose=1)
+
 base_model.trainable=True # setting the VGG model to be trainable.
+
 model.compile(optimizer=Adam(lr=1e-5),loss='categorical_crossentropy',metrics=['accuracy'])
+
 model.summary()
+
 Then we store the model in a history variable
+
 History = model.fit(x_train, y_train, epochs=epochs, validation_data=(x_test,y_test))
+
 Then we plot the epochs vs accuracy and Model Loss graphs.
+
 plt.plot(History.history['accuracy'])
+
 plt.plot(History.history['val_accuracy'])
+
 plt.title('Model Accuracy')
+
 plt.ylabel('Accuracy')
+
 plt.xlabel('Epochs')
+
 plt.legend(['train', 'test'])
+
 plt.show()
  
-
 plt.plot(History.history['loss'])
+
 plt.plot(History.history['val_loss'])
+
 plt.title('Model Loss')
+
 plt.ylabel('Loss')
+
 plt.xlabel('Epochs')
+
 plt.legend(['train', 'test'])
+
 plt.show()
 
  
