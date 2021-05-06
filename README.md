@@ -1,9 +1,13 @@
 README
 Creation of ipynb file
+
+
 •	First jupyter notebook was launched with the command Jupyter Notebook from Anaconda Prompt.
 •	Then a new ipynb file or Python 3 file was created.
 •	Next the codes were coded accordingly.
 Execution
+
+
 First, we need to extract the dataset and train the data model.
 def make_train_data(label,DIR):
     for img in tqdm(os.listdir(DIR)):
@@ -19,12 +23,18 @@ IMG_SIZE=150
 NOTFIRE='Test/No_Fire'
 FIRE='Test/Fire'
 
+
+
 make_train_data('NOTFIRE',NOTFIRE)
 make_train_data('FIRE',FIRE)
 The images are imported into the training data from the respective folders.
 
 The next step is of subplotting the images and training them accordingly to predict or identify the fire images and not fire images
+
+
 Then we load the ResNet50 model and use transfer learning to use the prebuilt trained models to use as a prediction system.
+
+
 base_model=ResNet50(include_top=False, weights='imagenet',input_shape=(150,150,3), pooling='max')
 base_model.summary()
 model=Sequential()
